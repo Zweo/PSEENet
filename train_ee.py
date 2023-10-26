@@ -11,6 +11,7 @@ from net import PSENet as MODEL
 
 class AverageMeter(object):
     """Computes and stores the average and current value"""
+
     def __init__(self):
         self.reset()
 
@@ -28,14 +29,12 @@ class AverageMeter(object):
 
 
 class MData(Dataset):
-    def __init__(self,
-                 dataset,
-                 mode,
-                 channel,
-                 seed,
-                 transformations=None,
-                 dataset_split=None):
+
+    def __init__(self, dataset, mode, channel, seed):
         super().__init__()
+        '''
+            Adjusted to the dataset in use.
+        '''
         self.data = []
         self.label = []
 
@@ -43,6 +42,15 @@ class MData(Dataset):
         return len(self.label)
 
     def __getitem__(self, idx):
+        '''
+            returns:
+                signal [B * 3 * 3000]
+                label  [B * 1]
+
+                EEG: signal[:,0,:]
+                EOG: signal[:,1,:]
+                ...:
+        '''
         signal = self.data[idx]
         label = self.label[idx]
         if self.transformations is not None:
