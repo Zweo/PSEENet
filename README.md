@@ -9,3 +9,12 @@ Requirement:
 
 python main.py
 
+
+
+1. download Sleep-EDFX automaticly
+```bach
+wget -r -N -c -np https://physionet.org/files/sleep-edfx/1.0.0/
+```
+2. preprocess 
+
+3. train
