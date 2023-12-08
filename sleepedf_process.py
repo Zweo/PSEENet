@@ -4,24 +4,15 @@ Created on Tue Mar 16 14:15:33 2021
 
 @author: User01
 """
-
 import pyedflib
 import numpy as np
 import scipy.io as sio
 from scipy import signal
 import os
 import glob
-import math
 import ntpath
 import librosa
-import xml.dom.minidom as minidom
-# from mne.io import concatenate_raws, read_raw_edf
-# import mne
-# import dhedfreader
 from sklearn import preprocessing
-
-  
-# path = 'sleep-edf-database-expanded-1.0.0/sleep-cassette'
 def transEDF2MAT(path, output_dir):
     psg_name = glob.glob(f"{path}*PSG.edf")
     label_name = glob.glob(path+ "*Hypnogram.edf")

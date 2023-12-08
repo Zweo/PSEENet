@@ -75,8 +75,29 @@ def plot_1(X_embedded, ty):
     plt.savefig(f'tsne.png', dpi=200)
 
 
-if not os.path.exists('EE-cos/Sleep-EDFX/21'):
-    print('Must train first!')
-    exit(0)
-data= get_tSNE('EE-cos/Sleep-EDFX/21', 'Sleep-EDFX')
-plot_1(*data)
+
+def main():
+    if not os.path.exists('EE-cos/Sleep-EDFX/21'):
+        print('Must train first!')
+        exit(0)
+    data= get_tSNE('EE-cos/Sleep-EDFX/21', 'Sleep-EDFX')
+    plot_1(*data)
+
+
+def demo():
+    # demo
+    # draw tSNE of X1,X2 with labels on one figure.
+    # 
+    X1 = np.random.randn(25, 256)
+    X2 = np.random.randn(25, 256)
+    X = np.vstack([X1, X2])
+    y1 = np.random.random_integers(0,4, 25)
+    ty = np.vstack([y1, y1])
+    X_embedded = TSNE(n_components=2,
+                      learning_rate='auto',
+                      init='random',
+                      random_state=2022).fit_transform(X)
+    plot_1(X_embedded, ty)
+
+# main()
+demo()
