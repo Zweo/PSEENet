@@ -58,10 +58,12 @@ class MData(Dataset):
         # random.shuffle(files)
         test_files = files[sidx:sidx + k]
         train_files = list(set(files) - set(test_files))
+        valid_files = random.choices(train_files, k=k)
+        train_files = list(set(train_files) - set(valid_files))
         dataset_split = {
             'train': train_files,
-            'valid': test_files[:k // 2],
-            'test': test_files[k // 2:]
+            'valid': valid_files,
+            'test': test_files
         }
         return dataset_split
 
