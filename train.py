@@ -54,11 +54,12 @@ class MData(Dataset):
         k = len(files) // 10
         sidx = (seed % 10) * k
         # op
-        # random.seed(seed)
+        #
         # random.shuffle(files)
         test_files = files[sidx:sidx + k]
         train_files = list(set(files) - set(test_files))
-        valid_files = random.choices(train_files, k=k)
+        random.seed(seed)
+        valid_files = random.sample(train_files, k=k)
         train_files = list(set(train_files) - set(valid_files))
         dataset_split = {
             'train': train_files,
