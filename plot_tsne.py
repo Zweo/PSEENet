@@ -25,13 +25,13 @@ def load_model(path):
     return model
 
 
-def get_tSNE(path, name):
+def get_tSNE(path, datapath):
     X = []
     y = []
     file = glob(path + '/*')[0]
     print(file)
     seed = 21
-    test_dataset = MData(name, 'test', seed)
+    test_dataset = MData(datapath, 'all', seed)
     test_loader = DataLoader(test_dataset, batch_size=64)
     model = load_model(file)
     model.eval()
@@ -76,10 +76,10 @@ def plot_1(X_embedded, ty):
 
 
 
-def main():
-    if not os.path.exists('EE-cos/Sleep-EDFX/21'):
+def main(model_path='EE-cos/Sleep-EDFX/21', data_path='data'):
+    if not os.path.exists(model_path):
         raise FileNotFoundError("Must train first!")
-    data= get_tSNE('EE-cos/Sleep-EDFX/21', 'Sleep-EDFX')
+    data= get_tSNE(model_path, data_path')
     plot_1(*data)
 
 
@@ -98,8 +98,8 @@ def demo():
                       random_state=2022).fit_transform(X)
     plot_1(X_embedded, ty)
 
-
-try:
-    main()
-except:
-    demo()
+if __name__ == '__main__':
+    try:
+        main()
+    except:
+        demo()

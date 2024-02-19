@@ -32,14 +32,14 @@ class AverageMeter(object):
 
 class MData(Dataset):
 
-    def __init__(self, dataset, mode, seed):
+    def __init__(self, path, mode, seed):
         super().__init__()
         '''
             Adjusted to the dataset in use.
         '''
         self.data = None
         self.label = None
-        data = self.get_dataset(seed)
+        data = self.get_dataset(seed, path)
         for file in data[mode]:
             xx, yy = self.load_file(file)
             if self.data is None:
@@ -49,8 +49,8 @@ class MData(Dataset):
                 self.data = np.append(self.data, xx, axis=0)
                 self.label = np.append(self.label, yy, axis=0)
 
-    def get_dataset(self, seed):
-        files = glob('data/*.mat')
+    def get_dataset(self, seed, path='data'):
+        files = glob(f'{path}/*.mat')
         k = len(files) // 10
         sidx = (seed % 10) * k
         # op
@@ -62,6 +62,7 @@ class MData(Dataset):
         valid_files = random.sample(train_files, k=k)
         train_files = list(set(train_files) - set(valid_files))
         dataset_split = {
+            'all':files,
             'train': train_files,
             'valid': valid_files,
             'test': test_files
