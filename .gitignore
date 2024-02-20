@@ -1,3 +1,7 @@
 data*
 .vscode
 **cache**
+models
+*.spec
+dist
+build
