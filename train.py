@@ -50,12 +50,12 @@ class MData(Dataset):
                 self.label = np.append(self.label, yy, axis=0)
 
     def get_dataset(self, seed, path='data'):
+        '''
+            example dataset
+        '''
         files = glob(f'{path}/*.mat')
         k = len(files) // 10
         sidx = (seed % 10) * k
-        # op
-        #
-        # random.shuffle(files)
         test_files = files[sidx:sidx + k]
         train_files = list(set(files) - set(test_files))
         random.seed(seed)
